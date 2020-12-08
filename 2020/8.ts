@@ -1,9 +1,10 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
 type Program = { op: string; n: number }[];
 
-const program: Program = fs
-	.readFileSync(__dirname + "/8.txt", "utf-8")
+const program: Program = Deno.readTextFileSync(
+	relativeResolve(import.meta, "8.txt")
+)
 	.split("\n")
 	.map(line => {
 		const split = line.split(" ");
@@ -13,7 +14,7 @@ const program: Program = fs
 const run = (program: Program) => {
 	let pointer = 0;
 	let accumulator = 0;
-	let finishSignal: "repeating" | "finished";
+	let finishSignal: "repeating" | "finished" | null = null;
 
 	const pointersDone: number[] = [];
 

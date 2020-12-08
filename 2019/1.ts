@@ -1,15 +1,14 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
 const getFuel = (mass: number) => Math.floor(mass / 3) - 2;
 
-const getActualFuel = (mass: number) => {
+const getActualFuel = (mass: number): number => {
 	const fuel = Math.floor(mass / 3) - 2;
 	if (fuel < 0) return 0;
 	return fuel + getActualFuel(fuel);
 };
 
-const masses = fs
-	.readFileSync(__dirname + "/1.txt", "utf8")
+const masses = Deno.readTextFileSync(relativeResolve(import.meta, "1.txt"))
 	.split("\n")
 	.map(n => Number(n));
 

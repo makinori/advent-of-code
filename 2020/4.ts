@@ -1,7 +1,6 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const passports = fs
-	.readFileSync(__dirname + "/4.txt", "utf8")
+const passports = Deno.readTextFileSync(relativeResolve(import.meta, "4.txt"))
 	.split(/\n\s*\n/g)
 	.map(passport =>
 		passport
@@ -10,7 +9,7 @@ const passports = fs
 			.map(field => field.trim())
 	)
 	.map(fields => {
-		const data = {};
+		const data: { [key: string]: string } = {};
 		for (const field of fields) {
 			const [key, value] = field.split(":");
 			if (key && value) {

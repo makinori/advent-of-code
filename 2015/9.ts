@@ -1,10 +1,10 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const allRoutes = fs
-	.readFileSync(__dirname + "/9.txt", "utf8")
+const allRoutes = Deno.readTextFileSync(relativeResolve(import.meta, "9.txt"))
 	.split("\n")
 	.map(route => {
 		const matches = route.match(/^([^]+) to ([^]+) = ([0-9]+)$/);
+		if (matches == null) throw new Error("Invalid regex");
 		return {
 			from: matches[1],
 			to: matches[2],
@@ -25,7 +25,7 @@ const getDistance = (a: string, b: string) => {
 };
 
 const getAllNames = () => {
-	const names = {};
+	const names: { [key: string]: boolean } = {};
 	for (const route of allRoutes) {
 		names[route.from] = true;
 		names[route.to] = true;
@@ -64,7 +64,7 @@ const allPaths = findAllCombinations(allNames)
 		let distance = 0;
 		let currentlyAt = path[0];
 		for (let i = 1; i < path.length; i++) {
-			distance += getDistance(currentlyAt, path[i]);
+			distance += getDistance(currentlyAt, path[i]) ?? 0;
 			currentlyAt = path[i];
 		}
 		return { path, distance };

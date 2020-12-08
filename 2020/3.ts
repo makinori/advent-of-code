@@ -1,6 +1,8 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const map = fs.readFileSync(__dirname + "/3.txt", "utf-8").split("\n");
+const map = Deno.readTextFileSync(relativeResolve(import.meta, "3.txt")).split(
+	"\n"
+);
 const height = map.length;
 
 const isTree = (x: number, y: number) => {

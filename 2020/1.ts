@@ -1,7 +1,6 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const expenses = fs
-	.readFileSync(__dirname + "/1.txt", "utf8")
+const expenses = Deno.readTextFileSync(relativeResolve(import.meta, "1.txt"))
 	.split("\n")
 	.map(n => Number(n));
 

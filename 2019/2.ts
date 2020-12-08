@@ -1,7 +1,6 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const program = fs
-	.readFileSync(__dirname + "/2.txt", "utf8")
+const program = Deno.readTextFileSync(relativeResolve(import.meta, "2.txt"))
 	.split(",")
 	.map(n => Number(n));
 

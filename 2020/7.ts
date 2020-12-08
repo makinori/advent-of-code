@@ -1,8 +1,6 @@
-import { log } from "console";
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const bagsData = fs
-	.readFileSync(__dirname + "/7.txt", "utf8")
+const bagsData = Deno.readTextFileSync(relativeResolve(import.meta, "7.txt"))
 	.split("\n")
 	.map(bagStr => {
 		const [color, list] = bagStr.split(" bags contain ");
@@ -14,7 +12,7 @@ const bagsData = fs
 				.filter(bagStr => bagStr != "no other bags")
 				.map(bagStr => {
 					bagStr = bagStr.replace(/bags?/i, "").trim();
-					const amount = Number(bagStr.match(/([0-9]) /)[1]);
+					const amount = Number((bagStr.match(/([0-9]) /) ?? [0])[1]);
 					const color = bagStr.replace(/[0-9] /, "").trim();
 					return { color, amount };
 				})
@@ -25,6 +23,7 @@ const getBagOfColor = (color: string) => {
 	for (const bag of bagsData) {
 		if (color == bag.color) return bag;
 	}
+	return null;
 };
 
 interface Bag {
@@ -74,6 +73,7 @@ interface Bag {
 
 	const processBag = (bag: Bag) => {
 		const bagData = getBagOfColor(bag.color);
+		if (bagData == null) throw new Error(bag.color + " not found");
 		bag.bags = [];
 		for (let i = 0; i < bag.amount; i++) {
 			bag.bags = [...bag.bags, ...bagData.bags];

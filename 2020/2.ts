@@ -1,10 +1,10 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const passwords = fs
-	.readFileSync(__dirname + "/2.txt", "utf8")
+const passwords = Deno.readTextFileSync(relativeResolve(import.meta, "2.txt"))
 	.split("\n")
 	.map(password => {
 		const matches = password.match(/^([0-9]+)-([0-9]+) ([a-z]): ([a-z]+)$/);
+		if (matches == null) throw new Error("Invalid regex");
 		return {
 			min: Number(matches[1]),
 			max: Number(matches[2]),

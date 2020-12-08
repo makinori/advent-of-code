@@ -1,4 +1,4 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
 const processPass = (passStr: string) => {
 	const pass = passStr.split("");
@@ -22,7 +22,9 @@ const processPass = (passStr: string) => {
 	return { row, col, seatId };
 };
 
-const passes = fs.readFileSync(__dirname + "/5.txt", "utf8").split("\n");
+const passes = Deno.readTextFileSync(
+	relativeResolve(import.meta, "5.txt")
+).split("\n");
 
 let lowestSeatId = 999999;
 let highestSeatId = 0;

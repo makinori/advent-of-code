@@ -1,12 +1,11 @@
-import fs from "fs";
+import { relativeResolve } from "../utils.ts";
 
-const groups = fs
-	.readFileSync(__dirname + "/6.txt", "utf8")
+const groups = Deno.readTextFileSync(relativeResolve(import.meta, "6.txt"))
 	.split(/\n\n/g)
 	.map(group => group.split(/\n/g));
 
 const makeLetterMap = (a: string) => {
-	const map = {};
+	const map: { [key: string]: boolean } = {};
 	for (const char of a.split("")) {
 		if (/[a-z]/.test(char)) map[char] = true;
 	}
