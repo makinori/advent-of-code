@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const program = Deno.readTextFileSync(relativeResolve(import.meta, "2.txt"))
+const program = (await readFile(import.meta, "2.txt"))
 	.split(",")
 	.map(n => Number(n));
 

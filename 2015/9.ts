@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const allRoutes = Deno.readTextFileSync(relativeResolve(import.meta, "9.txt"))
+const allRoutes = (await readFile(import.meta, "9.txt"))
 	.split("\n")
 	.map(route => {
 		const matches = route.match(/^([^]+) to ([^]+) = ([0-9]+)$/);

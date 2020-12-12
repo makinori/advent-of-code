@@ -1,4 +1,4 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
 const processPass = (passStr: string) => {
 	const pass = passStr.split("");
@@ -22,9 +22,7 @@ const processPass = (passStr: string) => {
 	return { row, col, seatId };
 };
 
-const passes = Deno.readTextFileSync(
-	relativeResolve(import.meta, "5.txt")
-).split("\n");
+const passes = (await readFile(import.meta, "5.txt")).split("\n");
 
 let lowestSeatId = 999999;
 let highestSeatId = 0;

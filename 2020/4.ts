@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const passports = Deno.readTextFileSync(relativeResolve(import.meta, "4.txt"))
+const passports = (await readFile(import.meta, "4.txt"))
 	.split(/\n\s*\n/g)
 	.map(passport =>
 		passport

@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const passwords = Deno.readTextFileSync(relativeResolve(import.meta, "2.txt"))
+const passwords = (await readFile(import.meta, "2.txt"))
 	.split("\n")
 	.map(password => {
 		const matches = password.match(/^([0-9]+)-([0-9]+) ([a-z]): ([a-z]+)$/);

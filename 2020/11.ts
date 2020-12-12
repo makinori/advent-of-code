@@ -1,10 +1,8 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
 type Space = "L" | "#" | ".";
 
-const originalSeatLayout: Space[][] = Deno.readTextFileSync(
-	relativeResolve(import.meta, "11.txt")
-)
+const originalSeatLayout: Space[][] = (await readFile(import.meta, "11.txt"))
 	.split("\n")
 	.map(line =>
 		line.split("").map(space => {

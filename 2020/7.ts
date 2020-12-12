@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const bagsData = Deno.readTextFileSync(relativeResolve(import.meta, "7.txt"))
+const bagsData = (await readFile(import.meta, "7.txt"))
 	.split("\n")
 	.map(bagStr => {
 		const [color, list] = bagStr.split(" bags contain ");

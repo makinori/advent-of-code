@@ -1,10 +1,8 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
 type Program = { op: string; n: number }[];
 
-const program: Program = Deno.readTextFileSync(
-	relativeResolve(import.meta, "8.txt")
-)
+const program: Program = (await readFile(import.meta, "8.txt"))
 	.split("\n")
 	.map(line => {
 		const split = line.split(" ");

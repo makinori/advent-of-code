@@ -1,6 +1,6 @@
-import { relativeResolve } from "../utils.ts";
+import { readFile } from "../utils.ts";
 
-const groups = Deno.readTextFileSync(relativeResolve(import.meta, "6.txt"))
+const groups = (await readFile(import.meta, "6.txt"))
 	.split(/\n\n/g)
 	.map(group => group.split(/\n/g));
 
