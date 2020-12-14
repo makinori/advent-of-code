@@ -92,3 +92,26 @@ const busIds = data[1].split(",").map(time => Number(time));
 
 // 	console.log(time);
 // }
+
+// https://github.com/andreamazzatxt/AdventOfCode2020/blob/main/13/13.js
+
+// let time = 0;
+// let multiplicator = 1;
+
+// for (let i = 0; i < busIds.length; i++) {
+// 	const busId = busIds[i];
+// 	if (Number.isNaN(busId)) continue;
+
+// 	let found = false;
+
+// 	while (!found) {
+// 		if ((time + i) % busId === 0) {
+// 			found = true;
+// 			multiplicator *= busId;
+// 		} else {
+// 			time += multiplicator;
+// 		}
+// 	}
+// }
+
+// console.log(time);
