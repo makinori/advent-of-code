@@ -5,8 +5,11 @@ const textInput = await readFile(import.meta, "1.txt");
 const allElfCalories: number[][] = textInput
 	.trim()
 	.split("\n\n")
-	.map((elfTextInput: string) =>
-		elfTextInput.split("\n").map(n => Number(n))
+	.map(elfTextInput =>
+		elfTextInput
+			.trim()
+			.split("\n")
+			.map(n => Number(n))
 	);
 
 let highest = 0;

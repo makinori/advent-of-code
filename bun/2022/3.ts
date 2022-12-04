@@ -5,8 +5,9 @@ const rucksackInput = await readFile(import.meta, "3.txt");
 const rucksacks: [string, string][] = rucksackInput
 	.trim()
 	.split("\n")
+	.map(rucksack => rucksack.trim())
 	// doesnt check if its not even
-	.map((rucksack: string) => [
+	.map(rucksack => [
 		rucksack.slice(0, rucksack.length / 2),
 		rucksack.slice(rucksack.length / 2, rucksack.length)
 	]);
