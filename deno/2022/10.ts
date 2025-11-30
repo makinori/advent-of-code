@@ -1,4 +1,4 @@
-import { readFile } from "../utils";
+import { readFile } from "../utils.ts";
 
 const input = await readFile(import.meta, "10.txt");
 

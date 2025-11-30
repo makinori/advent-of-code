@@ -1,4 +1,4 @@
-import { readFile } from "../utils";
+import { readFile } from "../utils.ts";
 
 const rucksackInput = await readFile(import.meta, "3.txt");
 

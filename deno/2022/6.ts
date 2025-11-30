@@ -1,4 +1,4 @@
-import { readFile } from "../utils";
+import { readFile } from "../utils.ts";
 
 function isUnique(phrase: string) {
 	let chars: string[] = [];

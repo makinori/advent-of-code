@@ -1,4 +1,4 @@
-import { readFile } from "../utils";
+import { readFile } from "../utils.ts";
 import * as path from "node:path";
 
 const linesString = await readFile(import.meta, "7.txt");

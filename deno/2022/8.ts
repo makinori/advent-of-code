@@ -1,4 +1,4 @@
-import { readFile } from "../utils";
+import { readFile } from "../utils.ts";
 
 const treeHeightsString = await readFile(import.meta, "8.txt");
 
