@@ -2,9 +2,13 @@
 
 https://adventofcode.com
 
-### 2015 to 2022
+### 2025+
 
-https://deno.land/
+```bash
+cd go && go run .
+```
+
+### 2015 to 2022
 
 ```bash
 deno run --allow-read deno/2020/x.ts
