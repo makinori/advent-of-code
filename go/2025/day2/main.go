@@ -1,4 +1,4 @@
-package aoc2025day2
+package main
 
 import (
 	_ "embed"
@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	//go:embed 2.txt
+	//go:embed input.txt
 	input string
 
 	invalidIDsWhenRepeatedTwice int
@@ -64,7 +64,7 @@ func processID(idNum int) {
 	}
 }
 
-func Main() {
+func main() {
 	// processID(12341234)
 	// processID(123123123)
 	// processID(1212121212)

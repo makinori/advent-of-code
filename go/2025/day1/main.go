@@ -1,4 +1,4 @@
-package aoc2025day1
+package main
 
 import (
 	_ "embed"
@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	//go:embed 1.txt
+	//go:embed input.txt
 	input string
 
 	currentRotation int = 50
@@ -52,7 +52,7 @@ func processLine(line string) {
 	}
 }
 
-func Main() {
+func main() {
 	input = strings.TrimSpace(input)
 	for line := range strings.SplitSeq(input, "\n") {
 		processLine(line)
