@@ -5,8 +5,6 @@ import (
 	"os"
 	"slices"
 	"strconv"
-
-	"github.com/makinori/advent-of-code/go/aoc2025"
 )
 
 type puzzle struct {
@@ -17,12 +15,6 @@ type puzzle struct {
 type year struct {
 	year    int
 	puzzles []puzzle
-}
-
-var all = []year{
-	{year: 2025, puzzles: []puzzle{
-		{puzzle: 1, fn: aoc2025.Puzzle1},
-	}},
 }
 
 func main() {

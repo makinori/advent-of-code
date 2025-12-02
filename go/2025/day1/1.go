@@ -1,4 +1,4 @@
-package aoc2025
+package aoc2025day1
 
 import (
 	_ "embed"
@@ -52,7 +52,7 @@ func processLine(line string) {
 	}
 }
 
-func Puzzle1() {
+func Main() {
 	input = strings.TrimSpace(input)
 	for line := range strings.SplitSeq(input, "\n") {
 		processLine(line)
