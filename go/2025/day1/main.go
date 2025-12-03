@@ -46,7 +46,7 @@ func processLine(line string) {
 
 	totalClicks += clicks
 
-	currentRotation = int(util.GLSLMod(float64(newRotation), 100))
+	currentRotation = util.GLSLModi(newRotation, 100)
 	if currentRotation == 0 {
 		endsOnZero++
 	}

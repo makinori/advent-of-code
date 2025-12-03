@@ -3,9 +3,11 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"math"
+	"slices"
 	"strconv"
 	"strings"
+
+	"github.com/makinori/advent-of-code/go/util"
 )
 
 var (
@@ -18,7 +20,11 @@ var (
 
 func processID(idNum int) {
 	idStr := strconv.Itoa(idNum)
-	length := len(idStr)
+	length := uint(len(idStr))
+
+	if length < 1 {
+		return
+	}
 
 	if length%2 == 0 && idStr[:length/2] == idStr[length/2:] {
 		invalidIDsWhenRepeatedTwice += idNum
@@ -30,15 +36,11 @@ func processID(idNum int) {
 
 	// fmt.Println(idStr)
 
-	var factors []int
+	lengthFactors := util.Factors(length)
+	lengthFactors = lengthFactors[:len(lengthFactors)-1] // remove self
+	slices.Reverse(lengthFactors)                        // biggest first
 
-	for i := length / 2; i > 0; i-- {
-		if math.Mod(float64(length), float64(i)) == 0 {
-			factors = append(factors, i)
-		}
-	}
-
-	for _, factor := range factors {
+	for _, factor := range lengthFactors {
 		needle := idStr[:factor]
 		// fmt.Println("factor", factor, "needle", needle)
 
