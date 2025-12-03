@@ -30,6 +30,8 @@ func Factors(n uint) (factors []uint) {
 	// the result of our division is also a factor
 	// if result <= i, we can end early
 
+	var otherFactors []uint
+
 	for i := uint(1); i <= n/2; i++ {
 		frac := n % i
 		if frac != 0 {
@@ -38,7 +40,7 @@ func Factors(n uint) (factors []uint) {
 
 		// fmt.Println("i", i)
 
-		if slices.Index(factors, i) > -1 {
+		if slices.Index(otherFactors, i) > -1 {
 			break
 		}
 
@@ -56,10 +58,14 @@ func Factors(n uint) (factors []uint) {
 		// 	panic("otherFactor already in factors")
 		// }
 
-		factors = append(factors, otherFactor)
+		otherFactors = append(otherFactors, otherFactor)
 	}
 
-	UintSlice(factors).Sort()
+	// UintSlice(factors).Sort()
+
+	slices.Reverse(otherFactors)
+
+	factors = append(factors, otherFactors...)
 
 	factorsCache[n] = make([]uint, len(factors))
 	copy(factorsCache[n], factors)
