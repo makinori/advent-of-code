@@ -6,14 +6,13 @@ import (
 
 var factorsCache = map[uint][]uint{}
 
-func Factors(n uint) (factors []uint) {
+func Factors(n uint) []uint {
 	if n == 0 {
-		return
+		return []uint{}
 	}
 
 	if n == 1 {
-		factors = append(factors, 1)
-		return
+		return []uint{1}
 	}
 
 	// could probably optimize further by using the cache in our for loop lol
@@ -21,15 +20,16 @@ func Factors(n uint) (factors []uint) {
 
 	cache, ok := factorsCache[n]
 	if ok {
-		factors = make([]uint, len(cache))
+		factors := make([]uint, len(cache))
 		copy(factors, cache)
-		return
+		return factors
 	}
 
 	// factors start at 1, end at n/2 and include self
 	// the result of our division is also a factor
 	// if result <= i, we can end early
 
+	var factors []uint
 	var otherFactors []uint
 
 	for i := uint(1); i <= n/2; i++ {
