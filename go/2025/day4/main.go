@@ -1,18 +1,17 @@
 package main
 
 import (
-	"bytes"
 	_ "embed"
 	"fmt"
-	"os"
-	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/makinori/advent-of-code/go/util/draw"
 )
 
 const (
 	ANIMATE         = false
-	ANIMATION_SPEED = time.Millisecond * 100
+	ANIMATION_SPEED = time.Millisecond * 50
 )
 
 var (
@@ -30,22 +29,22 @@ const (
 type Grid [][]Item
 
 func (grid *Grid) Print() {
-	buf := bytes.NewBuffer(nil)
-	for _, row := range *grid {
-		for _, item := range row {
+	img := draw.BrailleImage{}
+
+	for y, row := range *grid {
+		for x, item := range row {
 			switch item {
-			case ItemAir:
-				buf.WriteString("..")
 			case ItemRoll:
-				buf.WriteString("@@")
+				img.Set(uint(x), uint(y), true)
 			default:
-				buf.WriteString("??")
+				img.Set(uint(x), uint(y), false)
 			}
 		}
-		buf.WriteByte('\n')
 	}
-	// remove trailing \n
-	fmt.Println(buf.String()[:buf.Len()-1])
+
+	// draw.Clear()
+	draw.Move(0, 0)
+	img.Print()
 }
 
 func sampleGrid(grid Grid, x, y int) Item {
@@ -96,12 +95,6 @@ func countRolls(grid Grid) (int, Grid) {
 	return totalRolls, newGrid
 }
 
-func clear() {
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	cmd.Run()
-}
-
 func main() {
 	input = strings.TrimSpace(input)
 
@@ -123,7 +116,7 @@ func main() {
 	}
 
 	if ANIMATE {
-		clear()
+		draw.Clear()
 		grid.Print()
 	}
 
@@ -147,7 +140,6 @@ func main() {
 		}
 
 		if ANIMATE {
-			clear()
 			grid.Print()
 		}
 
