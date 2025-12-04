@@ -1,3 +1,6 @@
+export CGO_ENABLED := "0"
+export GOEXPERIMENT := "greenteagc"
+
 default:
 	@just --list
 
@@ -26,3 +29,10 @@ list:
 
 run year day:
 	go run ./{{year}}/day{{day}}
+
+build year day:
+	go build -ldflags "-s -w" ./{{year}}/day{{day}}
+	strip day{{day}}
+
+clean:
+	rm -f day*
