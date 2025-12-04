@@ -1,8 +1,8 @@
-# Advent of Code
+# [Advent of Code](https://adventofcode.com)
 
-https://adventofcode.com
+[Can't commit puzzle inputs](https://adventofcode.com/about#faq_copying), so this repo is inputless and commitless
 
-Use `just`
+Use `just` and figure out the rest
 
 2025 onward in Go
 

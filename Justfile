@@ -15,6 +15,7 @@ list:
 	@echo "deno:"
 	@cd deno && just list
 
+[group("internal")]
 update-public:
 	git remote get-url public # fails if remote not found
 	git branch -D public || true
