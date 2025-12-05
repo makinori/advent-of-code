@@ -20,8 +20,9 @@ update-public:
 	#!/usr/bin/env bash
 	set -euo pipefail
 
-	# fails if remote not found
+	# fail if remote or git-filter-repo not found
 	git remote get-url public > /dev/null
+	git-filter-repo --version > /dev/null
 
 	git checkout -B public
 	git-filter-repo --refs HEAD --invert-paths --path-glob "*.txt" --force
