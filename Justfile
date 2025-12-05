@@ -4,15 +4,13 @@ export GOEXPERIMENT := "greenteagc"
 default:
 	@just --list
 
-alias l := list
-[group("go")]
-list:
+_list dir regex:
 	#!/usr/bin/env python3
 	from pathlib import Path
 	import re
 
 	years = []
-	for dir in Path(".").iterdir():
+	for dir in Path("{{dir}}").iterdir():
 		if not re.search(r"^\d+$", dir.name):
 			continue
 		years.append(int(dir.name))
@@ -21,38 +19,22 @@ list:
 
 	for year in years:
 		days = []
-		for file in (Path(".") / str(year)).iterdir():
-			match = re.match(r"^day(\d+)$", file.name)
+		for file in (Path("{{dir}}") / str(year)).iterdir():
+			match = re.match(r"^{{regex}}$", file.name)
 			if not match:
 				continue
 			days.append(int(match.group(1)))
 		days.sort()
 		print(str(year) + ": " + ",".join(str(n) for n in days))
+
+
+alias l := list
+[group("go")]
+list: (_list '.' 'day(\d+)')
 
 alias ld := list-deno
 [group("deno")]
-list-deno:
-	#!/usr/bin/env python3
-	from pathlib import Path
-	import re
-
-	years = []
-	for dir in Path("deno").iterdir():
-		if not re.search(r"^\d+$", dir.name):
-			continue
-		years.append(int(dir.name))
-	years.sort()
-	years.reverse()
-
-	for year in years:
-		days = []
-		for file in (Path("deno") / str(year)).iterdir():
-			match = re.match(r"^(\d+)\.ts$", file.name)
-			if not match:
-				continue
-			days.append(int(match.group(1)))
-		days.sort()
-		print(str(year) + ": " + ",".join(str(n) for n in days))
+list-deno: (_list 'deno' '(\d+)\.ts')
 
 alias la := list-all
 list-all:
