@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"flag"
 	"fmt"
 	"strings"
 	"time"
@@ -10,13 +11,14 @@ import (
 )
 
 const (
-	ANIMATE         = false
 	ANIMATION_SPEED = time.Millisecond * 50
 )
 
 var (
 	//go:embed input.txt
 	input string
+
+	animate = false
 )
 
 type Item uint8
@@ -96,6 +98,13 @@ func countRolls(grid Grid) (int, Grid) {
 }
 
 func main() {
+	flag.BoolVar(&animate, "animate", false, "animation with braille renderer")
+	flag.Parse()
+
+	if !animate {
+		fmt.Println("try with -animate")
+	}
+
 	input = strings.TrimSpace(input)
 
 	var grid Grid
@@ -115,7 +124,7 @@ func main() {
 		grid = append(grid, row)
 	}
 
-	if ANIMATE {
+	if animate {
 		termdraw.Clear()
 		grid.Print()
 	}
@@ -123,7 +132,7 @@ func main() {
 	totalRolls := 0
 
 	for {
-		if ANIMATE {
+		if animate {
 			time.Sleep(ANIMATION_SPEED)
 		}
 
@@ -131,7 +140,7 @@ func main() {
 		count, grid = countRolls(grid)
 
 		// puzzle 1
-		if !ANIMATE && totalRolls == 0 {
+		if !animate && totalRolls == 0 {
 			fmt.Println(count)
 		}
 
@@ -139,14 +148,14 @@ func main() {
 			break
 		}
 
-		if ANIMATE {
+		if animate {
 			grid.Print()
 		}
 
 		totalRolls += count
 	}
 
-	if !ANIMATE {
+	if !animate {
 		fmt.Println(totalRolls)
 	}
 }

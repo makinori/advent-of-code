@@ -63,8 +63,8 @@ list-all:
 
 alias r := run
 [group("go")]
-run year day:
-	go run ./{{year}}/day{{day}}
+run year day *args:
+	go run ./{{year}}/day{{day}} {{args}}
 
 alias rd := run-deno
 [group("deno")]
