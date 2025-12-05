@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/makinori/advent-of-code/go/util"
+	"github.com/makinori/advent-of-code/util"
 )
 
 var (

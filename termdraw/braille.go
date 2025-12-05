@@ -1,4 +1,4 @@
-package draw
+package termdraw
 
 var (
 	translationMap = []uint8{0, 3, 1, 4, 2, 5, 6, 7}

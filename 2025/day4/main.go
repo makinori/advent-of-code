@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/makinori/advent-of-code/go/util/draw"
+	"github.com/makinori/advent-of-code/termdraw"
 )
 
 const (
@@ -29,7 +29,7 @@ const (
 type Grid [][]Item
 
 func (grid *Grid) Print() {
-	img := draw.BrailleImage{}
+	img := termdraw.BrailleImage{}
 
 	for y, row := range *grid {
 		for x, item := range row {
@@ -42,8 +42,8 @@ func (grid *Grid) Print() {
 		}
 	}
 
-	// draw.Clear()
-	draw.Move(0, 0)
+	// termdraw.Clear()
+	termdraw.Move(0, 0)
 	img.Print()
 }
 
@@ -116,7 +116,7 @@ func main() {
 	}
 
 	if ANIMATE {
-		draw.Clear()
+		termdraw.Clear()
 		grid.Print()
 	}
 

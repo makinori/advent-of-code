@@ -1,20 +1,95 @@
+export CGO_ENABLED := "0"
+export GOEXPERIMENT := "greenteagc"
+
 default:
 	@just --list
 
-[working-directory: "go"]
-go *args:
-	@just {{args}}
-
-[working-directory: "deno"]
-deno *args:
-	@just {{args}}
-
+alias l := list
+[group("go")]
 list:
-	@echo "go:"
-	@cd go && just list
-	@echo "deno:"
-	@cd deno && just list
+	#!/usr/bin/env python3
+	from pathlib import Path
+	import re
 
+	years = []
+	for dir in Path(".").iterdir():
+		if not re.search(r"^\d+$", dir.name):
+			continue
+		years.append(int(dir.name))
+	years.sort()
+	years.reverse()
+
+	for year in years:
+		days = []
+		for file in (Path(".") / str(year)).iterdir():
+			match = re.match(r"^day(\d+)$", file.name)
+			if not match:
+				continue
+			days.append(int(match.group(1)))
+		days.sort()
+		print(str(year) + ": " + ",".join(str(n) for n in days))
+
+alias ld := list-deno
+[group("deno")]
+list-deno:
+	#!/usr/bin/env python3
+	from pathlib import Path
+	import re
+
+	years = []
+	for dir in Path("deno").iterdir():
+		if not re.search(r"^\d+$", dir.name):
+			continue
+		years.append(int(dir.name))
+	years.sort()
+	years.reverse()
+
+	for year in years:
+		days = []
+		for file in (Path("deno") / str(year)).iterdir():
+			match = re.match(r"^(\d+)\.ts$", file.name)
+			if not match:
+				continue
+			days.append(int(match.group(1)))
+		days.sort()
+		print(str(year) + ": " + ",".join(str(n) for n in days))
+
+alias la := list-all
+list-all:
+	@echo "go:"
+	@just list
+	@echo "deno:"
+	@just list-deno
+
+alias r := run
+[group("go")]
+run year day:
+	go run ./{{year}}/day{{day}}
+
+alias rd := run-deno
+[group("deno")]
+run-deno year day:
+	deno run --allow-read ./deno/{{year}}/{{day}}.ts
+
+alias b := build
+[group("go")]
+build year day:
+	go build -ldflags "-s -w" ./{{year}}/day{{day}}
+	strip day{{day}}
+
+alias c := clean
+[group("go")]
+clean:
+	rm -f day*
+
+alias n := new
+[group("go")]
+new year day:
+	d="./{{year}}/day{{day}}" && mkdir -p "$d" && \
+	f="$d/main.go" && [ -f "$f" ] && echo "already exists" || \
+	(cp _template.go "$f" && touch "$d/input.txt" && xdg-open "$f")
+
+alias up := update-public
 [group("internal")]
 update-public:
 	#!/usr/bin/env bash

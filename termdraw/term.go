@@ -1,4 +1,4 @@
-package draw
+package termdraw
 
 import (
 	"fmt"
