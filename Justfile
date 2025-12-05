@@ -20,12 +20,13 @@ update-public:
 	#!/usr/bin/env bash
 	set -euo pipefail
 
-	git remote get-url public # fails if remote not found
+	# fails if remote not found
+	git remote get-url public > /dev/null
 
 	commits=$(git rev-list --count HEAD)
-	from=$(git log --format=%ai --max-parents=0 -n1 | cut -d- -f1)
-	to=$(git log -1 --format=%ai | cut -d- -f1)
-	message="Squash $commits commits from $from to $to"
+	from=$(git log --date=format:%b\ %Y --format=%ad --max-parents=0 -n1)
+	# to=$(git log --date=format:%b\ %Y --format=%ad -1)
+	message="Squash $commits commits since $from"
 
 	git branch -D public || true
 	git checkout --orphan public
