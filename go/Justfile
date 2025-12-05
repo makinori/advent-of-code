@@ -36,3 +36,8 @@ build year day:
 
 clean:
 	rm -f day*
+
+new year day:
+	d="./{{year}}/day{{day}}" && mkdir -p "$d" && \
+	f="$d/main.go" && [ -f "$f" ] && echo "already exists" || \
+	(cp template._go "$f" && touch "$d/input.txt" && xdg-open "$f")

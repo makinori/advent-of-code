@@ -1,0 +1,13 @@
+package main
+
+import (
+	_ "embed"
+)
+
+var (
+	//go:embed input.txt
+	input string
+)
+
+func main() {
+}
