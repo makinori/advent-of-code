@@ -23,16 +23,8 @@ update-public:
 	# fails if remote not found
 	git remote get-url public > /dev/null
 
-	commits=$(git rev-list --count HEAD)
-	from=$(git log --date=format:%b\ %Y --format=%ad --max-parents=0 -n1)
-	# to=$(git log --date=format:%b\ %Y --format=%ad -1)
-	message="Squash $commits commits since $from"
-
-	git branch -D public || true
-	git checkout --orphan public
-	git rm -f "*.txt"
-	git add .
-	git commit -am "$message"
+	git checkout -B public
+	git-filter-repo --refs HEAD --invert-paths --path-glob "*.txt" --force
 	git push --force --set-upstream public public:main
 	git checkout main
 	git branch -D public
