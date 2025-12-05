@@ -1,6 +1,6 @@
 # [Advent of Code](https://adventofcode.com)
 
-[Can't commit puzzle inputs](https://adventofcode.com/about#faq_copying), so this repo is inputless and commitless
+[Can't commit puzzle inputs](https://adventofcode.com/about#faq_copying), so this repo gets filtered
 
 Use `just` and figure out the rest
 
