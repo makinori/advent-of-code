@@ -82,6 +82,7 @@ update-public:
 	git-filter-repo --version > /dev/null
 
 	git checkout -B public
+	rm -f .git/filter-repo/already_ran
 	git-filter-repo --refs HEAD --invert-paths --path-glob "*.txt" --force
 	git push --force --set-upstream public public:main
 	git checkout main
