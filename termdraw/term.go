@@ -5,8 +5,14 @@ import (
 	"os"
 )
 
+// TODO: add cursor caching and just draw caching in general
+
 func Clear() {
 	fmt.Fprintf(os.Stdout, "\033[2J")
+}
+
+func ClearLine() {
+	fmt.Fprintf(os.Stdout, "\033[2K")
 }
 
 func Move(x, y uint) {
@@ -28,6 +34,6 @@ func MoveRel(x, y int) {
 	}
 }
 
-func Write(char string) {
-	os.Stdout.WriteString(char)
+func Write(str string) {
+	os.Stdout.WriteString(str)
 }
