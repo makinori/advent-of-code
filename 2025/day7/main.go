@@ -119,7 +119,7 @@ func processLine(y int) bool {
 
 	for _, x := range beams {
 		switch line[x] {
-		case '.':
+		case ' ':
 			// air
 			line[x] = '|'
 		case '|':
@@ -157,7 +157,7 @@ func simulateBeam(
 		sample := lines[y][startX]
 		if sample == '^' {
 			break
-		} else if animate && sample == '.' {
+		} else if animate && sample == ' ' {
 			currentLinesForAnimating[y][startX] = '|'
 		}
 
@@ -198,7 +198,10 @@ func main() {
 		fmt.Println("try with -animate")
 	}
 
-	lines = bytes.Split([]byte(strings.TrimSpace(input)), []byte{'\n'})
+	input = strings.TrimSpace(input)
+	input = strings.ReplaceAll(input, ".", " ") // prettier to draw
+
+	lines = bytes.Split([]byte(input), []byte{'\n'})
 	height = len(lines)
 	width = len(lines[0])
 
@@ -234,7 +237,7 @@ func main() {
 
 	// reset lines and simulate each beam instead
 
-	lines = bytes.Split([]byte(strings.TrimSpace(input)), []byte{'\n'})
+	lines = bytes.Split([]byte(input), []byte{'\n'})
 
 	startX := 0
 	for x := range width {
