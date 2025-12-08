@@ -54,7 +54,21 @@ func copyLines(input [][]byte) [][]byte {
 	return output
 }
 
+func widerLines(lines [][]byte) [][]byte {
+	widerLines := make([][]byte, len(lines))
+	for y := range lines {
+		widerLines[y] = make([]byte, len(lines[y])*2)
+		for x := range lines[y] {
+			widerLines[y][x*2] = ' '
+			widerLines[y][x*2+1] = lines[y][x]
+		}
+	}
+	return widerLines
+}
+
 func drawLines(lines [][]byte, extraText string) {
+	lines = widerLines(lines)
+
 	termdraw.Move(0, 0)
 
 	for y := range height {
